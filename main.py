@@ -26,8 +26,9 @@ st.set_page_config(page_title='Home' ,layout='wide')
 # specify the primary menu definition
 def NavBar():
     menu_data = [
-    {'icon': "far fa-user", 'label':"wordcloud"},
-    { 'label':"getdata"}]
+        {'id':"getdata", 'label':"data analysis"},
+        {'label':"wordcloud"},
+    ]
     over_theme = {'txc_inactive': '#FFFFFF', 'menu_background':'#39C0ED'}
     menu_id = hc.nav_bar(
     menu_definition=menu_data,
@@ -50,8 +51,11 @@ def scrapData():
         df_data = scrapTweets(options)
         st.write(df_data)
         st.success(" Done !")
+        return df_data
 
-    
+def analyseData(df):
+    df = df.drop_duplicates()    
+    return df
 
 
 
@@ -62,7 +66,10 @@ st.info(f"{menu_id}")
 if menu_id == 'wordcloud':
     st.write('hello Mother Fuckers')
 elif menu_id == 'getdata':
-    scrapData()
+    df_data = scrapData()
+    analyseData(df_data)
+
+
 
 
 
